@@ -21,35 +21,51 @@
 
 				<section class="modal__homepage">
 					<div class="modal__homepage__header">
-						<i class="fa fa-light fa-xmark"></i>
+						<button class="js__button"><i class="fa fa-light fa-xmark"></i></button>		
 					</div>
 				
 
 					<article class="modal__homepage__box">
 						<h1>Galerie Photo</h1>
-						<div class="modal__gallery__box">
-
+						<div class="modal__gallery__box-wrapper">
+							<div class="modal__gallery__box">
+								<!-- JS insert -->
+							</div>
 						</div>
-
+						<div class="modal__gallery__actions">
+							<button class="add_photo">Ajouter une photo</button>
+							<button class="remove_photo">Supprimer la galerie</button>
+						</div>
 					</article>
-					<button class="add_photo">Ajouter une photo</button>
-					<button class="remove_photo">Supprimer la galerie</button>
+					
 				</section>
+				
 				<section class="modal__editproject">
 					<div class="modal__editproject__header">
-						<i class="fa-light fa-arrow-left"></i>
-						<i class="fa fa-light fa-xmark"></i>
+						<button class="js__button"><i class="fa fa-light fa-arrow-left"></i></button>	
+						<button class="js__button"><i class="fa fa-light fa-xmark"></i></button>	
+						
 					</div>
-				
 
 					<article class="modal__editproject__box">
-						<h1>Gallerie Photo</h1>
+						<h1>Ajout Photo</h1>
 						<form class="form__addphoto">
-
+							<div class="add__photo__box">
+								<img src="./assets/icons/picture.png" alt="icon of a picture" class="icon__picture">
+								<label for="add_file" id="file_focus">+ Ajouter photo</label>
+								<input type="file" name="add_file" id="add_file" placeholder="+ Ajouter photo" style="visibility: hidden;">
+								<p>jpg, png : 4mo max</p>
+							</div>
+							<label for="title_image" class="label__titleimage">Titre</label>
+							<input type="text" name="title_image" id="title_image">
+							<label for="categorie_select" class="label__categorieimage">Catégorie</label>
+							<select name="categorie_select" id="categorie_select">
+								<option></option>
+							</select>
 						</form>
-
+						<button class="button__addphoto_confirm" disabled>Valider</button>
 					</article>
-					<button class="button__addphoto_confirm"></button>
+					
 				</section>
 			</div>
 		</aside>

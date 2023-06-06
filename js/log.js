@@ -11,7 +11,6 @@ document.querySelectorAll('nav li').forEach(value => {
 	}
 })
 
-console.log(sessionStorage);
 
 // Ajout de l'event listener sur le bouton de connexion et envoie des données du formulaire à l'API pour vérification
 login.addEventListener("submit", (e) => {
@@ -62,31 +61,3 @@ async function fetchCredential(jsonbody) {
 		login.insertBefore(error, login.firstChild);
 	} throw new Error("Impossible de contacter l'api")
 }
-// function checkCredential (jsonbody) {
-// 	fetch('http://localhost:5678/api/users/login', {
-// 		method:'POST',
-// 		headers: {
-// 			Accept: "application/json",
-// 			"Content-type":"application/json"
-// 		},
-// 		body: jsonbody
-// 	})
-// 	.then((response) => {
-// 		if (response.status == 200){
-// 			response.json()
-// 		}
-// 	})
-// 	.then((data) => {
-// 		console.log(data)
-// 	})
-// }
-// response.json()
-// else if (response.status == 401){
-	// error.innerText = "Vous n'êtes pas authorisé à entrer"
-	// login.insertBefore(error, login.firstChild);
-// 	return
-// } else if (response.status == 404){
-// 	error.innerText = "Aucun utilisateur trouvé"
-// 	login.insertBefore(error, login.firstChild);
-// 	return
-// }

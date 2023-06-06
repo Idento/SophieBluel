@@ -1,8 +1,35 @@
+const selectModal = document.querySelector(".modal");
+const modal = document.getElementById(selectModal.getAttribute('id'))
+const modalContent = document.querySelector('.modal__content');
 let gallery = document.querySelector(".gallery");
 let categorie = document.querySelector(".categorie");
-let body = document.querySelector('body')
+let body = document.querySelector('body');
 let connect = false;
 let T;
+
+// MODIFICATION DOM PARTIE ADMINISTRATEUR
+// Création de l'overlay et ajout à la page.
+function overlay_edit_change_html () {					
+	let editMode = document.createElement('div');			
+	let span = document.createElement('span');			
+	let image = document.createElement('img');			
+	let publish = document.createElement('div');			
+	let spanPublish = document.createElement('span');			
+
+	editMode.setAttribute('class', 'edit_mode');			
+	publish.setAttribute('class', 'publish');			
+
+	spanPublish.innerText = 'publier les changements';			
+	image.src = '../assets/icons/editer_white.png';			
+	span.innerText = 'Mode édition';			
+
+	publish.appendChild(spanPublish)			
+	editMode.appendChild(span).appendChild(image)			
+	editMode.appendChild(publish)			
+
+	body.insertBefore(editMode, body.firstChild);			
+}
+
 
 // Creation du span de modification du site
 function modif(spanclass){
@@ -54,27 +81,6 @@ function project_modifier(){
 	port.insertBefore(divTitleProject, categorie)
 }
 
-// Création de l'overlay et ajout à la page.
-function overlay_edit_change_html () {
-	let editMode = document.createElement('div');
-	let span = document.createElement('span');
-	let image = document.createElement('img');
-	let publish = document.createElement('div');
-	let spanPublish = document.createElement('span');
-
-	editMode.setAttribute('class', 'edit_mode');
-	publish.setAttribute('class', 'publish');
-
-	spanPublish.innerText = 'publier les changements';
-	image.src = '../assets/icons/editer_white.png';
-	span.innerText = 'Mode édition';
-
-	publish.appendChild(spanPublish)
-	editMode.appendChild(span).appendChild(image)
-	editMode.appendChild(publish)
-
-	body.insertBefore(editMode, body.firstChild);
-}
 
 // Appel de l'api afin d'obtenir tous les projets
 async function fetchAllProjectData() {
@@ -97,6 +103,7 @@ async function fetchCategoryData() {
 	throw new Error("Impossible de contacter l'API");
 }
 
+// PARTIE INSERTION DYNAMIQUE DES PROJETS ET TRI
 
 // Fonction de tri et de création des boutons de catégorie
 async function category() {
@@ -114,13 +121,22 @@ async function category() {
 	for (let i = 0; i < array.length; i++) {
 		let createButton = document.createElement("div");
 		let textButton = document.createElement("span");
+		// catégorie du formulaire modal
+		let modal_select = document.getElementById("categorie_select")
+		if (modal_select.children.length < 4){
+			let modal_categorie = document.createElement('option');
+			modal_categorie.value = `${array[i]["name"]}_${array[i]["id"]}`;
+			modal_categorie.innerText = `${array[i]["name"]}`
+			modal_select.appendChild(modal_categorie)
+		}
+		// Ajout catégorie page principal
 		textButton.innerText = `${array[i]["name"]}`;
 		createButton.appendChild(textButton);
 		categorie
 			.appendChild(createButton)
 			.setAttribute("class", `categ ${array[i]["id"]}`);
 	}
-	// Récupération de la classe catégorie où sont les boutons de filtres
+	// Récupération de la classe catégorie où sont les boutons de filtres catégorie
 	const categ = document.querySelectorAll(".categ");
 
 	// Boucle sur les boutons de catégorie pour ajouter l'écoute des boutons
@@ -196,6 +212,18 @@ function reload() {
 	pushElementAfterCall();
 }
 
+// Fonction permettant de regrouper toutes les actions pour la fermeture de la modale
+function close(){
+	modal.style.display = 'none'
+	removeWhenClose()
+	reset_form()
+	modal.removeAttribute('tabindex')
+	if (modal_change){
+		reload()
+	}
+}
+
+
 // Permet de savoir si un utilisateur est connecté 
 if (sessionStorage.getItem('hdr_t') !== null){
 	T = sessionStorage.getItem('hdr_t');
@@ -215,41 +243,44 @@ if (connect) {
 			value.innerText = "logout";
 			value.addEventListener('click', () => {
 				sessionStorage.clear();
-				window.location.href = "../index.html"
+				window.location.href = "../index.html";
+				connect = false;
 			})
 		}
 	})
-	let t = document.querySelector(".modal");
-	let modal = document.getElementById(t.getAttribute('id'))
-	// Ecoute du bouton modifier pour les projets
+
+	// Ecoute du bouton modifier pour les projets et affichage de la modale
 	document.querySelector('.project_modifier').addEventListener('click', (e) => {
 		modal.style.display = "flex";
 		modalHomeGallery();
+		modalHomepageShow();
+		modal_change = false;
+		findFocusElementOnActualPage()
 	})
+	// Permet de quitter la modale en cliquant à côté de la modale
 	modal.addEventListener('click', (e) => {
 		if (e.target !== modal) return
-		modal.style.display = 'none';
-		removeWhenClose()
-		reload()
+		close()
 	})
-	document.querySelector('.fa-xmark').addEventListener('click', () => {
-		modal.style.display = 'none'
-		removeWhenClose()
-		reload()
+	// Ecoute la croix de la modale afin de quitter celle ci 
+	document.querySelectorAll('.fa-xmark').forEach(a => {
+		a.addEventListener('click', (e) => {
+			console.log(e.target);
+			close()
+		})
 	})
+	// Permet de quitter la modale en appuyant sur échap et permet de tab sur les éléments de la modale
 	document.addEventListener('keydown', (e) => {
 		if (modal.style.display === "flex" && e.key === 'Escape' || e.key === 'esc'){
-			modal.style.display = 'none';
-			removeWhenClose()
+			close()
+		}
+		if (modal.style.display === 'flex' && e.key === 'Tab'){
+			if (modal.style.display === 'flex'){
+				focusInModal(e)
+			}
 		}
 	})
 }
 
-
 // Appel de la fonction au chargement du script pour afficher les projets après chargement de la page
 pushElementAfterCall();
-
-// document.querySelector('.test').addEventListener('click', (e) => {
-// 	e.stopPropagation()
-// 	reload()
-// })
