@@ -25,14 +25,12 @@ function findFocusElementOnActualPage () {
 	} else {
 		focusables = Array.from(editPage.querySelectorAll(focusableElement))
 	}
-	console.log(focusables);
 }
 
 // Fonction permettant de focus les éléments présent dans la page modal actuelle
 function focusInModal(e){
 	e.preventDefault();
     let index = focusables.findIndex(f => f === modalContent.querySelector(':focus'))
-    console.log(modalContent.querySelector(':focus'));
 	index++
     if (index >= focusables.length || index == -1){
 		index = 0
@@ -188,7 +186,7 @@ function reset_form() {
 
 // Fonction permettant de savoir si tous les champs sont remplis afin de débloquer le bouton valider
 function form_check () {
-    if (modal_editproject_categorie.value && modal_titleadd.value && document.querySelector('.imported_image')){
+    if (modal_editproject_categorie.value || modal_editproject_categorie.value === '' && modal_titleadd.value && document.querySelector('.imported_image')){
         button.removeAttribute('disabled')
     } 
     else {
@@ -201,12 +199,14 @@ function form_check () {
 document.querySelector('.add_photo').addEventListener('click', () => {
     modalEditProjectShow();
     findFocusElementOnActualPage();
+    removeWhenClose()
 })
 
 
 // Ecoute du bouton de l'icone flêche gauche pour revenir sur la page précédente du modal (page principal)
 document.querySelector('.fa-arrow-left').addEventListener('click', () => {
     modalHomepageShow();
+    modalHomeGallery()
     reset_form();
     findFocusElementOnActualPage();
 })
@@ -267,7 +267,6 @@ button.addEventListener('click', () => {
     const title_value = modal_titleadd.value
     const category_value = modal_editproject_categorie.value.split('_')[1]
     const messageResult = document.querySelector('.confirm')
-
     // Création du formulaire qui sera envoyé
     let formToSend = new FormData();
 
@@ -287,6 +286,7 @@ button.addEventListener('click', () => {
     request.onload = (e) => {
         if (request.status === 201){
             reset_form()
+            reload()
             if (!messageResult){
                 showPositiveMessage(`Envoi de " ${title_value}" réussi`, form, form.firstChild)
             }

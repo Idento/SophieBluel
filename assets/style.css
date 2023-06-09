@@ -422,7 +422,7 @@ footer nav ul {
 	background-color: transparent;	
 	border: none;
 }
-.modal__content h1 {
+.modal__content h2 {
 	color: black;
 	font-size: 26px;
 	text-align: center;
@@ -658,7 +658,6 @@ footer nav ul {
 	font-family: 'syne';
 	justify-content: center;
 	margin-bottom: 1%;
-	line-height: 15px;
 	padding: 2% 0;
 }
 

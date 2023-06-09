@@ -265,7 +265,6 @@ if (connect) {
 	// Ecoute la croix de la modale afin de quitter celle ci 
 	document.querySelectorAll('.fa-xmark').forEach(a => {
 		a.addEventListener('click', (e) => {
-			console.log(e.target);
 			close()
 		})
 	})

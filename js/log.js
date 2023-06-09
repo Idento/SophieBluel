@@ -16,7 +16,6 @@ document.querySelectorAll('nav li').forEach(value => {
 login.addEventListener("submit", (e) => {
 	e.preventDefault();
 	const data = new FormData(e.currentTarget);
-	console.log(data);
 	const jsondata = JSON.stringify({email:data.get('mail'), password:data.get('password')})
 	fetchCredential(jsondata)
 });

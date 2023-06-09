@@ -15,60 +15,63 @@
 		<link rel="stylesheet" href="./assets/style.css" />
 	</head>
 	<body>
+		<!------------------ Partie modale ------------------>
 		<aside class="modal" id="my_modal">
 
 			<div class="modal__content">
+				<!------------------ modale gestion de projet ------------------>
+				<div class="modal__homepage">
 
-				<section class="modal__homepage">
 					<div class="modal__homepage__header">
 						<button class="js__button"><i class="fa fa-light fa-xmark"></i></button>		
 					</div>
 				
-
 					<article class="modal__homepage__box">
-						<h1>Galerie Photo</h1>
+						<h2>Galerie Photo</h2>
 						<div class="modal__gallery__box-wrapper">
 							<div class="modal__gallery__box">
 								<!-- JS insert -->
 							</div>
 						</div>
+
 						<div class="modal__gallery__actions">
 							<button class="add_photo">Ajouter une photo</button>
 							<button class="remove_photo">Supprimer la galerie</button>
 						</div>
 					</article>
 					
-				</section>
-				
-				<section class="modal__editproject">
+				</div>
+				<!------------------ modale page ajout de projet ------------------>
+				<div class="modal__editproject">
+
 					<div class="modal__editproject__header">
 						<button class="js__button"><i class="fa fa-light fa-arrow-left"></i></button>	
 						<button class="js__button"><i class="fa fa-light fa-xmark"></i></button>	
-						
 					</div>
 
 					<article class="modal__editproject__box">
-						<h1>Ajout Photo</h1>
+						<h2>Ajout Photo</h2>
 						<form class="form__addphoto">
 							<div class="add__photo__box">
 								<img src="./assets/icons/picture.png" alt="icon of a picture" class="icon__picture">
 								<label for="add_file" id="file_focus">+ Ajouter photo</label>
-								<input type="file" name="add_file" id="add_file" placeholder="+ Ajouter photo" style="visibility: hidden;">
+								<input type="file" name="add_file" id="add_file" style="visibility: hidden;">
 								<p>jpg, png : 4mo max</p>
 							</div>
 							<label for="title_image" class="label__titleimage">Titre</label>
-							<input type="text" name="title_image" id="title_image">
+							<input type="text" name="title_image" id="title_image" maxlength="50">
 							<label for="categorie_select" class="label__categorieimage">Catégorie</label>
 							<select name="categorie_select" id="categorie_select">
-								<option></option>
+								<option disabled selected label="&nbsp;"></option>
 							</select>
 						</form>
 						<button class="button__addphoto_confirm" disabled>Valider</button>
 					</article>
 					
-				</section>
+				</div>
 			</div>
 		</aside>
+		<!------------------ Fin de la partie modale ------------------>
 		<header>
 			<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
 			<nav>
@@ -81,7 +84,7 @@
 			</nav>
 		</header>
 		<main>
-			<section id="introduction">
+			<div id="introduction">
 				<figure>
 					<img src="./assets/images/sophie-bluel.png" alt=""/>
 				</figure>
@@ -103,7 +106,7 @@
 						: architecte DPLG, décorateur(trice)
 					</p>
 				</article>
-			</section>
+			</div>
 			<section id="portfolio">
 				<h2>Mes Projets</h2>
 				<div class="categorie"></div>
