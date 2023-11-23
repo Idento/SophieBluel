@@ -1,0 +1,22 @@
+{
+    "name": "nom-de-votre-projet",
+    "version": "1.0.0",
+    "description": "Description de votre projet",
+    "scripts": {
+        "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+        "start:backend": "cd backend && node server.js",
+        "start:frontend": "cd frontend && npm start",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "votre",
+        "mot-clé",
+        "liste"
+    ],
+    "author": "Votre Nom",
+    "license": "Licence de votre choix",
+    "dependencies": {},
+    "devDependencies": {
+        "concurrently": "^6.2.2"
+    }
+}
